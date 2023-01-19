@@ -5,7 +5,8 @@ using UnityEngine;
 public class FireController : MonoBehaviour
 {
     // move
-    public Vector2 player = new Vector2(-8,0);
+    private Vector2 destination = new Vector2(-8,3);
+    private float speed = 3;
 
     //health
     private int health = 5;
@@ -16,13 +17,13 @@ public class FireController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), player, 3 * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * speed);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -39,4 +40,4 @@ public class FireController : MonoBehaviour
             health -= 1;
         }
     }
-}
+} 
