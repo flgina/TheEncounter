@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireController : MonoBehaviour
+public class FireController1 : MonoBehaviour
 {
     // move
-    private Vector2 destination = new Vector2(-8,4);
+    private Vector2 destination = new Vector2(-8,3);
     private float speed = 5.0f;
 
     // player
@@ -24,7 +24,7 @@ public class FireController : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        if (lightController.target == 2)
+        if (lightController.target == 4)
         {
             transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * speed);
         }

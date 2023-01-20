@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI healthText;
     public int health;
     private int currentHealth;
+    public int lives;
 
     // block
     public TextMeshProUGUI blockText;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
         sheild.SetActive(false);
 
         // health
-        health = 0;
+        health = 5;
         healthText.text = "Health: " + health.ToString() + "/5";
 
         // block
@@ -69,6 +70,7 @@ public class PlayerController : MonoBehaviour
     public void UpdateHealth(int health)
     {
         currentHealth += health;
-        healthText.text = "Health: " + currentHealth.ToString() + "/5";
+        lives = 5 - currentHealth;
+        healthText.text = "Health: " + lives.ToString() + "/5";
     }
 }
