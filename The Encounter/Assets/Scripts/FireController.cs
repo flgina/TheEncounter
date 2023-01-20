@@ -14,6 +14,8 @@ public class FireController : MonoBehaviour
     // block
     private int block = 0;
 
+    public EnemyController enemyController;
+
     // Start is called before the first frame update
     void Start()
     {
