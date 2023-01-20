@@ -16,6 +16,15 @@ public class LightController : MonoBehaviour
     public TextMeshProUGUI targetText;
     public int target;
 
+    // count
+    private FireController fireController;
+
+    // awake
+    void Awake()
+    {
+        fireController = GameObject.FindObjectOfType<FireController>();
+    }
+
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
@@ -48,6 +57,7 @@ public class LightController : MonoBehaviour
             collision.gameObject.SetActive(false);
             target += 1;
             targetText.text = "Enemies: " + target.ToString() + "/6";
+            fireController.UpdateCount(1);
         }
     }
 }

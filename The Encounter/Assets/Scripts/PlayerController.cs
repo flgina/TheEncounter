@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         sheild.SetActive(false);
 
         // health
-        health = 5;
+        health = 0;
         healthText.text = "Health: " + health.ToString() + "/5";
 
         // block

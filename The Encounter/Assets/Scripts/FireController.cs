@@ -14,6 +14,8 @@ public class FireController : MonoBehaviour
     // block
     public int block = 0;
 
+    private int currentCount;
+
     // player
     private PlayerController playerController;
 
@@ -23,11 +25,21 @@ public class FireController : MonoBehaviour
         playerController = GameObject.FindObjectOfType<PlayerController>();
     }
 
+    // count
+    public void UpdateCount(int count)
+    {
+        currentCount += count;
+        while (currentCount == 2)// || currentCount == 4 || currentCount == 6 || currentCount == 8 || currentCount == 10)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * speed);
+        }
+    }
+
     // Update is called once per frame
-    private void Update()
+    /*private void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * speed);
-    }
+    }*/
 
     void OnCollisionEnter2D(Collision2D collision)
     {
