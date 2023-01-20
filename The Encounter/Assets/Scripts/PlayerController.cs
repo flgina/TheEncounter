@@ -6,13 +6,35 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    // sheild
     public GameObject sheild;
 
-    // Start is called before the first frame update
+    // health
+    public TextMeshProUGUI healthText;
+    public int health;
+    private int currentHealth;
+
+    // block
+    public TextMeshProUGUI blockText;
+    public int block = 0;
+    private int currentBlock;
+
+    // timer
+    public TextMeshProUGUI timeText;
+    public float timer = 10;
+
+    // start
     void Start()
     {
         // sheild
         sheild.SetActive(false);
+
+        // health
+        health = 5;
+        healthText.text = "Health: " + health.ToString() + "/5";
+
+        // block
+        blockText.text = "Block: " + block.ToString() + "/1";
     }
 
     // Update is called once per frame
@@ -28,5 +50,25 @@ public class PlayerController : MonoBehaviour
         {
             sheild.SetActive(false);
         }
+
+        // timer
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            timer = 0;
+        }
+        timeText.text = timer.ToString();
+    }
+
+    public void UpdateSheild(int block)
+    {
+        currentBlock += block;
+        blockText.text = "Block: " + currentBlock.ToString() + "/1";
+    }
+
+    public void UpdateHealth(int health)
+    {
+        currentHealth += health;
+        healthText.text = "Health: " + currentHealth.ToString() + "/5";
     }
 }

@@ -124,4 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb385cb39af5e44e94fdb570c605f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyController: {fileID: 0}
+  healthText: {fileID: 275458711516112617, guid: e6547f9d4da01c14da06058f5803406a, type: 3}
+  health: 0
+  blockText: {fileID: 6993370239779922265, guid: 67dd7437b8e91e54f8f6b80cd7df5ca9, type: 3}
+  block: 0

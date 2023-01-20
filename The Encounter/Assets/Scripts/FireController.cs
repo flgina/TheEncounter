@@ -8,18 +8,19 @@ public class FireController : MonoBehaviour
     private Vector2 destination = new Vector2(-8,3);
     private float speed = 3;
 
-    //health
-    private int health = 5;
+    // health
+    public int health;
 
     // block
-    private int block = 0;
+    public int block = 0;
 
-    public EnemyController enemyController;
+    // player
+    private PlayerController playerController;
 
-    // Start is called before the first frame update
-    void Start()
+    // awake
+    void Awake()
     {
-
+        playerController = GameObject.FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -33,13 +34,13 @@ public class FireController : MonoBehaviour
         if (collision.gameObject.tag == "Sheild")
         {
             Destroy(gameObject);
-            block += 1;
+            playerController.UpdateSheild(1);
         }
 
         if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            health -= 1;
+            playerController.UpdateHealth(1);
         }
     }
 } 

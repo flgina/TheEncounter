@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442593dce7028c5469a0e3f3f18aa06f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetText: {fileID: 1435347483221938559, guid: f4cc4136a87814548818ac3d32762bc6, type: 3}
   target: 0
 --- !u!1001 &6274146045890285107
 PrefabInstance:

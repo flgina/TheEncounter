@@ -6,15 +6,16 @@ using UnityEngine.UI;
 
 public class LightController : MonoBehaviour
 {
-    // target
-    public TextMeshProUGUI targetText;
-    public int target;
-
     // move
     Rigidbody2D rigidbody2d;
     float horizontal;
     float vertical;
     public float speed = 3.0f;
+
+    // target
+    public TextMeshProUGUI targetText;
+    public int target;
+
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
@@ -42,7 +43,7 @@ public class LightController : MonoBehaviour
     // Destroy Enemy
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Light")
+        if (collision.gameObject.tag == "Elf")
         {
             collision.gameObject.SetActive(false);
             target += 1;
