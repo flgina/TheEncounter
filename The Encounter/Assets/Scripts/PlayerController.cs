@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    // light
+    LightController lightController;
+
     // sheild
     public GameObject sheild;
 
@@ -24,6 +27,17 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI timeText;
     public float timer = 10;
 
+    // win/lose
+    public TextMeshProUGUI gameText;
+    public bool gameOver = false;
+
+    // audio
+    AudioSource audioSource;
+    public AudioClip shieldSound;
+    public AudioClip loseSound;
+    public AudioClip winSound;
+    public AudioClip backgroundSound;
+
     // start
     void Start()
     {
@@ -36,6 +50,14 @@ public class PlayerController : MonoBehaviour
 
         // block
         blockText.text = "Block: " + block.ToString() + "/1";
+
+        // win/lose
+        gameText.text = "";
+
+        // sound
+        //audioSource = GetComponent<AudioSource>();
+        audioSource.clip = backgroundSound;
+        audioSource.Play();
     }
 
     // Update is called once per frame
@@ -59,18 +81,56 @@ public class PlayerController : MonoBehaviour
             timer = 0;
         }
         timeText.text = timer.ToString();
+
+        // win
+        if (/*(timer != 0)) && (lightController.target >= 6) && (lives != 0) && */(currentBlock >= 1))
+        {
+            gameText.text = "You Win!";
+            gameOver = true;
+
+            // sound
+            audioSource.clip = backgroundSound;
+            audioSource.Stop();
+            audioSource.clip = winSound;
+            audioSource.Play();
+        }
+
+        // lose
+        if (/*(timer == 0)) && (lightController.target < 6) && (lives == 0) && */(currentBlock != 0))
+        {
+            gameText.text = "You Lose!";
+            gameOver = true;
+
+            // sound
+            audioSource.clip = backgroundSound;
+            audioSource.Stop();
+            audioSource.clip = loseSound;
+            audioSource.Play();
+        }
     }
 
+    // sheild
     public void UpdateSheild(int block)
     {
         currentBlock += block;
         blockText.text = "Block: " + currentBlock.ToString() + "/1";
+
+        // sound
+        audioSource.clip = shieldSound;
+        audioSource.Play();
     }
 
+    // health
     public void UpdateHealth(int health)
     {
         currentHealth += health;
         lives = 5 - currentHealth;
         healthText.text = "Health: " + lives.ToString() + "/5";
+    }
+
+    // sound
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }
