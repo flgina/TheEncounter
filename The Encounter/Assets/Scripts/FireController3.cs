@@ -5,8 +5,9 @@ using UnityEngine;
 public class FireController3 : MonoBehaviour
 {
     // move
-    private Vector2 destination = new Vector2(-8,3);
-    private float speed = 5.0f;
+    public GameObject player;
+    private Transform playerPos;
+    public  float speed;
 
     // player
     private PlayerController playerController;
@@ -21,12 +22,17 @@ public class FireController3 : MonoBehaviour
         lightController = GameObject.FindObjectOfType<LightController>();
     }
 
+    void Start()
+    {
+        playerPos = player.GetComponent<Transform>();
+    }
+
     // Update is called once per frame
     void Update()
-    { 
-        if (lightController.target == 8)
+    {
+        if (lightController.target >= 8)
         {
-            transform.position = Vector2.MoveTowards(transform.position, destination, Time.deltaTime * speed);
+            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
         }
     }
 
