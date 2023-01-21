@@ -18,32 +18,39 @@ public class FireController3 : MonoBehaviour
     // awake
     void Awake()
     {
+        // player
         playerController = GameObject.FindObjectOfType<PlayerController>();
+        // light
         lightController = GameObject.FindObjectOfType<LightController>();
     }
 
     void Start()
     {
+        // get player position
         playerPos = player.GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // checks if number of targets required are destroyed
         if (lightController.target >= 8)
         {
+            // move
             transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        // shield
         if (collision.gameObject.tag == "Sheild")
         {
             Destroy(gameObject);
             playerController.UpdateSheild(1);
         }
 
+        // player
         if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
