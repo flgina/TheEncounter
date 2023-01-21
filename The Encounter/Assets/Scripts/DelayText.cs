@@ -7,7 +7,6 @@ public class DelayText : MonoBehaviour
 {
     // change scene
     public float delay = 2;
-    public string NewLevel = "Level";
 
     // audio
     AudioSource audioSource;
@@ -28,7 +27,7 @@ public class DelayText : MonoBehaviour
     IEnumerator LoadLevelAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(NewLevel);
+        SceneManager.LoadScene("Level");
     }
 
     public void PlaySound(AudioClip clip)
