@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,23 +13,22 @@ public class PlayerController : MonoBehaviour
     // sheild
     public GameObject sheild;
 
-    // health
-    public TextMeshProUGUI healthText;
-    public int health;
-    private int currentHealth;
-    public int lives;
-
     // block
     public TextMeshProUGUI blockText;
-    public int block = 0;
+    public int block;
     private int currentBlock;
+    public int defend;
+
+    // target
+    public TextMeshProUGUI targetText;
+    public int target;
+    public int currentTarget;
 
     // timer
     public TextMeshProUGUI timeText;
     public float timer = 10;
 
     // win/lose
-    public TextMeshProUGUI gameText;
     public bool gameOver = false;
 
     // audio
@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
     public AudioClip shieldSound;
     public AudioClip loseSound;
     public AudioClip winSound;
-    public AudioClip backgroundSound;
 
     // start
     void Start()
@@ -44,20 +43,35 @@ public class PlayerController : MonoBehaviour
         // sheild
         sheild.SetActive(false);
 
-        // health
-        health = 5;
-        healthText.text = "Health: " + health.ToString() + "/5";
-
         // block
-        blockText.text = "Block: " + block.ToString() + "/1";
+        block = 5;
+        blockText.text = "Block: " + block.ToString() + "/5";
 
-        // win/lose
-        gameText.text = "";
+        // target
+        target = 0;
+        targetText.text = "Enemies: " + target.ToString() + "/6";
 
         // sound
-        //audioSource = GetComponent<AudioSource>();
-        audioSource.clip = backgroundSound;
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    // sheild
+    public void UpdateSheild(int block)
+    {
+        currentBlock += block;
+        defend = 5 - currentBlock;
+        blockText.text = "Block: " + defend.ToString() + "/5";
+
+        // sound
+        audioSource.clip = shieldSound;
         audioSource.Play();
+    }
+
+    // target
+    public void UpdateTarget(int target)
+    {
+        currentTarget += target;
+        targetText.text = "Enemies: " + currentTarget.ToString() + "/6";
     }
 
     // Update is called once per frame
@@ -83,49 +97,18 @@ public class PlayerController : MonoBehaviour
         timeText.text = timer.ToString();
 
         // win
-        if (/*(timer != 0)) && (lightController.target >= 6) && (lives != 0) && */(currentBlock >= 1))
+        if ((timer != 0) && (currentTarget >= 6) && (defend >= 4))
         {
-            gameText.text = "You Win!";
             gameOver = true;
-
-            // sound
-            audioSource.clip = backgroundSound;
-            audioSource.Stop();
-            audioSource.clip = winSound;
-            audioSource.Play();
+            SceneManager.LoadScene("Win");
         }
 
         // lose
-        if (/*(timer == 0)) && (lightController.target < 6) && (lives == 0) && */(currentBlock != 0))
+        if ((timer == 0) && (currentTarget <= 5) || (defend == 5))
         {
-            gameText.text = "You Lose!";
             gameOver = true;
-
-            // sound
-            audioSource.clip = backgroundSound;
-            audioSource.Stop();
-            audioSource.clip = loseSound;
-            audioSource.Play();
+            SceneManager.LoadScene("Lose");
         }
-    }
-
-    // sheild
-    public void UpdateSheild(int block)
-    {
-        currentBlock += block;
-        blockText.text = "Block: " + currentBlock.ToString() + "/1";
-
-        // sound
-        audioSource.clip = shieldSound;
-        audioSource.Play();
-    }
-
-    // health
-    public void UpdateHealth(int health)
-    {
-        currentHealth += health;
-        lives = 5 - currentHealth;
-        healthText.text = "Health: " + lives.ToString() + "/5";
     }
 
     // sound

@@ -12,16 +12,11 @@ public class FireController4 : MonoBehaviour
     // player
     private PlayerController playerController;
 
-    // light
-    LightController lightController;
-
     // awake
     void Awake()
     {
         // player
         playerController = GameObject.FindObjectOfType<PlayerController>();
-        // light
-        lightController = GameObject.FindObjectOfType<LightController>();
     }
 
     void Start()
@@ -34,7 +29,7 @@ public class FireController4 : MonoBehaviour
     void Update()
     {
         // checks if number of targets required are destroyed
-        if (lightController.target >= 10)
+        if (playerController.currentTarget >= 10)
         {
             // move
             transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
@@ -54,7 +49,6 @@ public class FireController4 : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            playerController.UpdateHealth(1);
         }
     }
 }

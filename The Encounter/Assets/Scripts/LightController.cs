@@ -12,17 +12,21 @@ public class LightController : MonoBehaviour
     float vertical;
     public float speed = 3.0f;
 
-    // target
-    public TextMeshProUGUI targetText;
-    public int target;
+    // particle
+    public ParticleSystem explosionEffect;
+
+    // player
+    private PlayerController playerController;
+
+    void Awake()
+    {
+        // player
+        playerController = GameObject.FindObjectOfType<PlayerController>();
+    }
 
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
-
-        // target
-        target = 0;
-        targetText.text = "Enemies: " + target.ToString() + "/6";
     }
 
     void Update()
@@ -43,11 +47,12 @@ public class LightController : MonoBehaviour
     // Destroy Enemy
     void OnCollisionEnter2D(Collision2D collision)
     {
+        // target
         if (collision.gameObject.tag == "Elf")
         {
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
             collision.gameObject.SetActive(false);
-            target += 1;
-            targetText.text = "Enemies: " + target.ToString() + "/6";
+            playerController.UpdateTarget(1);
         }
     }
 }

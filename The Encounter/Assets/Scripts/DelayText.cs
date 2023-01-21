@@ -16,6 +16,7 @@ public class DelayText : MonoBehaviour
     void Start()
     {
         // audio
+        audioSource = GetComponent<AudioSource>();
         audioSource.clip = startSound;
         audioSource.Play();
 
