@@ -44,8 +44,8 @@ public class PlayerController : MonoBehaviour
         sheild.SetActive(false);
 
         // block
-        block = 5;
-        blockText.text = "Block: " + block.ToString() + "/5";
+        block = 0;
+        blockText.text = "Block: " + block.ToString() + "/1";
 
         // target
         target = 0;
@@ -59,8 +59,7 @@ public class PlayerController : MonoBehaviour
     public void UpdateSheild(int block)
     {
         currentBlock += block;
-        defend = 5 - currentBlock;
-        blockText.text = "Block: " + defend.ToString() + "/5";
+        blockText.text = "Block: " + currentBlock.ToString() + "/1";
 
         // sound
         audioSource.clip = shieldSound;
@@ -97,19 +96,25 @@ public class PlayerController : MonoBehaviour
         timeText.text = timer.ToString();
 
         // win
-        if ((timer != 0) && (currentTarget >= 6) && (defend >= 4))
+        if ((timer != 0) && (currentTarget >= 6) && (currentBlock >= 1))
         {
             gameOver = true;
             SceneManager.LoadScene("Win");
         }
 
         // lose
-        if ((timer == 0) && (currentTarget <= 5) || (defend == 5))
+        if ((timer == 0) && (currentTarget <= 5) || (timer == 0) && (currentBlock == 0))
         {
             gameOver = true;
             SceneManager.LoadScene("Lose");
         }
     }
+
+    /*public void Win()
+    {
+        gameOver = true;
+        SceneManager.LoadScene("Win");
+    }*/
 
     // sound
     public void PlaySound(AudioClip clip)
